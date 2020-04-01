@@ -7,4 +7,5 @@
 ( vagrant up )
 * ssh to control box and run ansible ping
 1. vagrant ssh control
-2. ansible web -m ping
+* type this in browser: Welcome to Devops should be displayed
+http://localhost:9090/examples/file2.html
