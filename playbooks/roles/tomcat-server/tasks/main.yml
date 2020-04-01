@@ -1,0 +1,15 @@
+---
+# tasks file for tomcat-server
+- name: ensure tomcat7 is installed
+  package:
+    name: tomcat
+    update_cache: yes
+    state: latest
+- name: ensure tomcat7 is running
+  service:
+    name: tomcat
+    state: started
+- name: ensure tomcat webapps is installed
+  package:
+    name: tomcat-webapps
+    state: latest

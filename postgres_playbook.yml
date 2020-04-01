@@ -1,0 +1,26 @@
+---
+- name: Create a mySQL DB server
+  hosts: db
+  become: yes
+  
+  tasks:
+  - name: ensure mySQL repo is installed
+    yum:
+      name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+      state: latest
+      update_cache: yes
+  - name: ensure mySQL service is installed
+    package:
+      name: mysql-server
+      state: latest
+  - name: ensure mySQL is running
+    service:
+      name: mysqld
+      state: started
+  # roles:
+  #   - role: mysql-server
+  # vars_files:
+  #   - vars/main.yml
+
+  # roles:
+  # - createdb

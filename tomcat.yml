@@ -1,0 +1,32 @@
+---
+- name: tomcat7
+  hosts: web
+  become: yes
+  tasks:
+  - name: ensure tomcat7 is installed
+    package:
+      name: tomcat
+      update_cache: yes
+      state: latest
+  - name: ensure tomcat7 is running
+    service:
+      name: tomcat
+      state: started
+  - name: ensure tomcat webapps is installed
+    package:
+      name: tomcat-webapps
+      state: latest
+  # - name: Create folder for html files
+  #   file:
+  #     path: /var/lib/tomcat/webapps/example1
+  #     owner: vagrant
+  #     group: vagrant
+  #     mode: 755
+  #     state: directory
+  - name: Copy file with owner and permissions
+    copy:
+      src: /vagrant/file2.html
+      dest: /var/lib/tomcat/webapps/examples/file2.html
+      owner: vagrant
+      group: vagrant
+      mode: '0644'

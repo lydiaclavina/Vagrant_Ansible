@@ -1,0 +1,14 @@
+---
+# tasks file for mysql-server
+- name: ensure mySQL repo is installed
+  yum:
+    name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+    state: present
+- name: ensure mySQL service is installed
+  package:
+    name: mysql-server
+    state: latest
+- name: ensure mySQL is running
+  service:
+    name: mysqld
+    state: started
