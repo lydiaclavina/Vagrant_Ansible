@@ -1,24 +1,35 @@
 ---
 - name: Configure web server
-  hosts: web1
+  hosts: web
   become: yes
 
   roles:
     - role: tomcat-server
 
-  tasks:  
+  tasks:
+    - name: Copy war to tomcat
+      copy:
+        src: /vagrant/war/TodoDemo-0.0.1-SNAPSHOT.war
+        dest: /var/lib/tomcat/webapps/todo.war
+    - name: Ensure tomcat is configured
+      copy:
+        src: /vagrant/war/application.properties
+        dest: /var/lib/tomcat/webapps/todo/WEB-INF/classes/application.properties
+        owner: tomcat
+        group: tomcat
+
   # - name: Installing required java
   #   yum:
   #     name: java-1.8.0-openjdk
   #     state: present
   
-  - name: Copy file with owner and permissions
-    copy:
-      src: /vagrant/file2.html
-      dest: /var/lib/tomcat/webapps/examples/file2.html
-      owner: vagrant
-      group: vagrant
-      mode: '0644'
+  # - name: Copy file with owner and permissions
+  #   copy:
+  #     src: /vagrant/file2.html
+  #     dest: /var/lib/tomcat/webapps/examples/file2.html
+  #     owner: vagrant
+  #     group: vagrant
+  #     mode: '0644'
 
   # - name: Download WAR to server
   #   synchronize:
@@ -63,7 +74,7 @@
   #     state: directory
 
 - name: Configure db server
-  hosts: db1
+  hosts: db
   become: yes
 
   roles:

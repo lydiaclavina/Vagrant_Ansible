@@ -1,0 +1,10 @@
+---
+# tasks file for python3
+- name: Ensure python3 and pip3 are installed
+  package:
+    name:
+      - python3
+      - python3-pip
+    state: present
+    update_cache: yes
+  become: true
